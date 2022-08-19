@@ -9,19 +9,25 @@ import kotlinx.coroutines.cancel
 import me.simonpojok.domain.common.model.DomainException
 import me.simonpojok.domain.common.usecase.UseCaseExecutor
 import me.simonpojok.domain.common.usecaseexecutor.UseCaseExecutorProvider
-import me.simonpojok.sportlive.ui.common.viewmodel.exception.PresentationException
-import me.simonpojok.sportlive.ui.common.viewmodel.mapper.DomainToPresentationMapper
+import me.simonpojok.sportlive.ui.common.viewmodel.exception.UiException
+import me.simonpojok.sportlive.ui.common.viewmodel.exception.SilentUiException
+import me.simonpojok.sportlive.ui.common.viewmodel.mapper.DomainToUiMapper
+import me.simonpojok.sportlive.ui.common.viewmodel.mapper.GeneralDomainToUiExceptionMapper
 
 abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogCommand>(
     useCaseExecutorProvider: UseCaseExecutorProvider,
-    private val exceptionDomainToPresentationMapper: DomainToPresentationMapper<in DomainException, out PresentationException>
+    private val exceptionDomainToUiMapper: DomainToUiMapper<in DomainException, out UiException>
 ) : ViewModel() {
-    val navigationCommands = SingleLiveEvent<PresentationDestination>()
+    open val generalExceptionMapper:
+        DomainToUiMapper<in DomainException, out UiException> =
+        GeneralDomainToUiExceptionMapper()
+
+    val navigationCommands = SingleLiveEvent<UiDestination>()
     val snackBarEvents = SingleLiveEvent<Int>()
     val snackBarStringEvents = SingleLiveEvent<String>()
 
     val notificationState = SingleLiveEvent<NotificationState>()
-    val presentationExceptionEvents = SingleLiveEvent<PresentationException>()
+    val presentationExceptionEvents = SingleLiveEvent<UiException>()
     private val _viewState = MutableLiveData<VIEW_STATE>().apply { value = initialState() }
     val viewState: LiveData<VIEW_STATE>
         get() = _viewState
@@ -39,7 +45,7 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
         notificationState.value = NotificationState.Loading(message)
     }
 
-    protected fun notifyFailure(message: String, exception: PresentationException) {
+    protected fun notifyFailure(message: String, exception: UiException) {
         notificationState.value = NotificationState.Failure(message)
     }
 
@@ -63,8 +69,8 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
 
     abstract fun initialState(): VIEW_STATE
 
-    protected fun navigate(presentationDestination: PresentationDestination) {
-        navigationCommands.value = presentationDestination
+    protected fun navigate(uiDestination: UiDestination) {
+        navigationCommands.value = uiDestination
     }
 
     fun updateState(newViewState: VIEW_STATE) {
@@ -81,6 +87,16 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
 
     protected fun setLoading(state: Boolean) {
         dialogLoadingState.value = state
+    }
+
+    fun notifyError(exception: DomainException) {
+        notifyError(generalExceptionMapper.toUi(exception))
+    }
+
+    fun notifyError(exception: UiException) {
+        if (exception !is SilentUiException) {
+            presentationExceptionEvents.value = exception
+        }
     }
 }
 

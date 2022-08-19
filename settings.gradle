@@ -14,3 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Sport Live"
 include ':app'
+include ':domain'
+include ':remote_datasource'
+include ':datasource'
+include ':presenation'

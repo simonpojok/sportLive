@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import me.simonpojok.sportlive.R
@@ -33,6 +34,8 @@ class PastEventsFragment : BaseFragment<PastEventsViewState, DialogCommand>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pastEventsRecyclerView.adapter = pastEventAdapter
+        val divider = DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL)
+        pastEventsRecyclerView.addItemDecoration(divider)
     }
 
     override fun renderViewState(viewState: PastEventsViewState) {

@@ -22,6 +22,8 @@ class PastEventViewHolder(
         dateView.text = item.date
 
         Picasso.get().load(item.imageUrl)
+            .fit()
+            .centerCrop()
             .into(eventImageView)
     }
 }

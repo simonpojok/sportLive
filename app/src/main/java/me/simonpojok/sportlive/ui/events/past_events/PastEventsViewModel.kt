@@ -31,7 +31,9 @@ class PastEventsViewModel @Inject constructor(
         useCaseExecutor.execute(
             useCase = getPastEventsUseCase,
             callback = ::updatePastEvents,
-            onError = ::notifyError
+            onError = {error ->
+                print(error.toString())
+            }
         )
     }
 

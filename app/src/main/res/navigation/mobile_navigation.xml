@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="me.simonpojok.sportlive.ui.home.HomeFragment"
+        android:name="me.simonpojok.sportlive.ui.events.past_events.PastEventsFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="me.simonpojok.sportlive.ui.notifications.NotificationsFragment"
+        android:name="me.simonpojok.sportlive.ui.events.upcoming_events.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

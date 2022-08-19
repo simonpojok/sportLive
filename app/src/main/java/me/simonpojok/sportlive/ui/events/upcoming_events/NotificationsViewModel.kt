@@ -1,4 +1,4 @@
-package me.simonpojok.sportlive.ui.notifications
+package me.simonpojok.sportlive.ui.events.upcoming_events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

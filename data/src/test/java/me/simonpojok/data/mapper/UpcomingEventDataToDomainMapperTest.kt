@@ -2,7 +2,7 @@ package me.simonpojok.data.mapper
 
 import junit.framework.Assert
 import me.simonpojok.data.events.mapper.UpcomingEventDataToDomainMapper
-import me.simonpojok.data.events.model.EventDataModel
+import me.simonpojok.data.events.model.UpcomingEventDataModel
 import me.simonpojok.domain.events.model.EventDomainModel
 import org.junit.Before
 import org.junit.Test
@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class UpcomingEventDataToDomainMapperTest(
-    private val input: EventDataModel.UpcomingEvent,
+    private val input: UpcomingEventDataModel,
     private val expectedResult: EventDomainModel.UpcomingEvent
 ) {
     companion object {
@@ -19,7 +19,7 @@ class UpcomingEventDataToDomainMapperTest(
         @Parameterized.Parameters(name = "Given {0} When toDomain Then returns {1}")
         fun params() = listOf(
             arrayOf(
-                EventDataModel.UpcomingEvent(
+                UpcomingEventDataModel(
                     id = "1",
                     title = "Coding",
                     subtitle = "Love Coding",
@@ -35,7 +35,7 @@ class UpcomingEventDataToDomainMapperTest(
                 )
             ),
             arrayOf(
-                EventDataModel.UpcomingEvent(
+                UpcomingEventDataModel(
                     id = "2",
                     title = "Coding 2",
                     subtitle = "Love Coding 2",
@@ -51,7 +51,7 @@ class UpcomingEventDataToDomainMapperTest(
                 ),
             ),
             arrayOf(
-                EventDataModel.UpcomingEvent(
+                UpcomingEventDataModel(
                     id = "3",
                     title = "Coding 3",
                     subtitle = "Love Coding 3",

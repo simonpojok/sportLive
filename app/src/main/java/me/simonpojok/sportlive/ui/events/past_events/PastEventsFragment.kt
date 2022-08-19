@@ -15,4 +15,8 @@ class PastEventsFragment : BaseFragment<PastEventsViewState, DialogCommand>() {
     override lateinit var destinationToNavigationMapper: PastEventsFragmentDestinationMapper
 
     override val viewModel: PastEventsViewModel by viewModels()
+
+    override fun renderViewState(viewState: PastEventsViewState) {
+        super.renderViewState(viewState)
+    }
 }

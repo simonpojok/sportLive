@@ -1,4 +1,4 @@
-package me.simonpojok.sportlive.ui.notifications
+package me.simonpojok.sportlive.ui.events.upcoming_events
 
 import android.os.Bundle
 import android.view.LayoutInflater

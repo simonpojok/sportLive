@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import me.simonpojok.sportlive.ui.common.viewmodel.mapper.GeneralDomainToUiExceptionMapper
 import me.simonpojok.sportlive.ui.events.mapper.PastEventDomainToUiMapper
 import me.simonpojok.sportlive.ui.events.past_events.PastEventsFragmentDestinationMapper
 
@@ -18,4 +19,7 @@ object UiModel {
     @Provides
     @Reusable
     fun providesPastEventsFragmentDestinationMapper() = PastEventsFragmentDestinationMapper()
+
+    @Provides
+    fun providesGeneralDomainToUiExceptionMapper() = GeneralDomainToUiExceptionMapper()
 }

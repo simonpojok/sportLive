@@ -9,7 +9,7 @@ import me.simonpojok.domain.events.repository.EventRepository
 
 interface GetPastEventsUseCase : BaseUseCase<Unit, List<PastEvent>>
 
-class GetPastEventsUseCaseImp(
+class GetPastEventsUseCaseImpl(
     private val eventRepository: EventRepository,
     coroutineContextProvider: CoroutineContextProvider
 ) : GetPastEventsUseCase, BackgroundExecuteUseCase<Unit, List<PastEvent>>(

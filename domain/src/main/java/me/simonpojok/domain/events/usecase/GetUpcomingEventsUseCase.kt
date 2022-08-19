@@ -9,7 +9,7 @@ import me.simonpojok.domain.events.repository.EventRepository
 
 interface GetUpcomingEventsUseCase : BaseUseCase<Unit, List<UpcomingEvent>>
 
-class GetUpcomingEventsUseCaseImp(
+class GetUpcomingEventsUseCaseImpl(
     private val eventRepository: EventRepository,
     coroutineContextProvider: CoroutineContextProvider
 ) : GetUpcomingEventsUseCase, BackgroundExecuteUseCase<Unit, List<UpcomingEvent>>(

@@ -1,4 +1,4 @@
-package me.simonpojok.sportlive.ui.common
+package me.simonpojok.sportlive.ui.common.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,8 +9,8 @@ import kotlinx.coroutines.cancel
 import me.simonpojok.domain.common.model.DomainException
 import me.simonpojok.domain.common.usecase.UseCaseExecutor
 import me.simonpojok.domain.common.usecaseexecutor.UseCaseExecutorProvider
-import me.simonpojok.sportlive.ui.common.exception.PresentationException
-import me.simonpojok.sportlive.ui.common.mapper.DomainToPresentationMapper
+import me.simonpojok.sportlive.ui.common.viewmodel.exception.PresentationException
+import me.simonpojok.sportlive.ui.common.viewmodel.mapper.DomainToPresentationMapper
 
 abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogCommand>(
     useCaseExecutorProvider: UseCaseExecutorProvider,

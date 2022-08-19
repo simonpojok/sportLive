@@ -1,4 +1,4 @@
-package me.simonpojok.sportlive.ui.common.mapper
+package me.simonpojok.sportlive.ui.common.viewmodel.mapper
 
 class PresentationMapperException(message: String, throwable: Throwable? = null) :
     Exception(message, throwable)

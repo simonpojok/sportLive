@@ -1,7 +1,7 @@
-package me.simonpojok.sportlive.ui.common.mapper
+package me.simonpojok.sportlive.ui.common.viewmodel.mapper
 
 import me.simonpojok.domain.common.model.DomainException
-import me.simonpojok.sportlive.ui.common.exception.PresentationException
+import me.simonpojok.sportlive.ui.common.viewmodel.exception.PresentationException
 
 class GeneralDomainToPresentationExceptionMapper :
     DomainToPresentationMapper<DomainException, PresentationException>() {

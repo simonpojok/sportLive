@@ -1,4 +1,4 @@
-package me.simonpojok.sportlive.ui.common.exception
+package me.simonpojok.sportlive.ui.common.viewmodel.exception
 
 sealed class Error {
     object None : Error()

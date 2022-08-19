@@ -1,4 +1,4 @@
-package me.simonpojok.sportlive.ui.common
+package me.simonpojok.sportlive.ui.common.viewmodel
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

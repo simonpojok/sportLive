@@ -1,13 +1,13 @@
 package me.simonpojok.data.events.remote
 
-import me.simonpojok.data.events.model.EventDataModel.PastEvent
-import me.simonpojok.data.events.model.EventDataModel.UpcomingEvent
+import me.simonpojok.data.events.model.PastEventDataModel
+import me.simonpojok.data.events.model.UpcomingEventDataModel
 import retrofit2.http.GET
 
 interface EventsService {
     @GET("/getEvents")
-    suspend fun getPastEvents(): List<PastEvent>
+    suspend fun getPastEvents(): List<PastEventDataModel>
 
     @GET("/getSchedule")
-    suspend fun getUpcomingEvents(): List<UpcomingEvent>
+    suspend fun getUpcomingEvents(): List<UpcomingEventDataModel>
 }

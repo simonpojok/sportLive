@@ -1,6 +1,6 @@
-package me.simonpojok.data.events.model
+package me.simonpojok.sportlive.ui.events.model
 
-sealed class EventDataModel(
+sealed class EventUiModel(
     open val id: String,
     open val title: String,
     open val subtitle: String,
@@ -14,7 +14,7 @@ sealed class EventDataModel(
         override val date: String,
         override val imageUrl: String,
         val videoUrl: String
-    ) : EventDataModel(id, title, subtitle, date, imageUrl)
+    ) : EventUiModel(id, title, subtitle, date, imageUrl)
 
     data class UpcomingEvent(
         override val id: String,
@@ -22,5 +22,5 @@ sealed class EventDataModel(
         override val subtitle: String,
         override val date: String,
         override val imageUrl: String,
-    ) : EventDataModel(id, title, subtitle, date, imageUrl)
+    ) : EventUiModel(id, title, subtitle, date, imageUrl)
 }

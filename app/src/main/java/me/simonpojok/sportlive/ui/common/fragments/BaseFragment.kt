@@ -9,16 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import me.simonpojok.sportlive.ui.common.fragments.destination.UiDestinationMapper
+import me.simonpojok.sportlive.ui.common.fragments.destination.UiDestinationToNavigationMapper
 import me.simonpojok.sportlive.ui.common.viewmodel.BaseViewModel
 import me.simonpojok.sportlive.ui.common.viewmodel.DialogCommand
-import me.simonpojok.sportlive.ui.common.viewmodel.PresentationDestination
+import me.simonpojok.sportlive.ui.common.viewmodel.UiDestination
 import me.simonpojok.sportlive.ui.common.viewmodel.ViewState
 
 abstract class BaseFragment<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogCommand> :
     Fragment() {
     abstract val layout: Int
-    abstract val destinationMapper: UiDestinationMapper
+    abstract val destinationToNavigationMapper: UiDestinationToNavigationMapper
     abstract val viewModel: BaseViewModel<VIEW_STATE, DIALOG_COMMAND>
 
     override fun onCreateView(
@@ -61,7 +61,7 @@ abstract class BaseFragment<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComma
     private fun observeViewModelInternal() {
         viewModel.navigationCommands.observe(
             viewLifecycleOwner,
-            NavigationObserver(destinationMapper, findNavController())
+            NavigationObserver(destinationToNavigationMapper, findNavController())
         )
         viewModel.viewState.observe(viewLifecycleOwner, RenderStateObserver())
         viewModel.dialogEvents.observe(viewLifecycleOwner, DialogEventsObserver())
@@ -83,12 +83,12 @@ abstract class BaseFragment<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComma
     }
 
     private class NavigationObserver(
-        private val destinationMapper: UiDestinationMapper,
+        private val destinationToNavigationMapper: UiDestinationToNavigationMapper,
         private val navController: NavController
-    ) : Observer<PresentationDestination> {
-        override fun onChanged(presentationDestination: PresentationDestination) {
+    ) : Observer<UiDestination> {
+        override fun onChanged(uiDestination: UiDestination) {
             try {
-                destinationMapper.map(presentationDestination).navigate(navController)
+                destinationToNavigationMapper.map(uiDestination).navigate(navController)
             } catch (exception: IllegalArgumentException) {
             }
         }

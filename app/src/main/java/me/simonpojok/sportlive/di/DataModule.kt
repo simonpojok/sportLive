@@ -36,10 +36,18 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun providesRetrofit() = Retrofit.Builder()
-        .baseUrl("https://us-central1-dazn-sandbox.cloudfunctions.net/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    fun providesRetrofit(): Retrofit {
+//        val logging = HttpLoggingInterceptor()
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+//        val httpClient = OkHttpClient.Builder()
+//        httpClient.addInterceptor(logging)
+
+        return Retrofit.Builder()
+            .baseUrl("https://us-central1-dazn-sandbox.cloudfunctions.net/")
+            .addConverterFactory(GsonConverterFactory.create())
+//            .client(httpClient.build())
+            .build()
+    }
 
     @Provides
     @Singleton

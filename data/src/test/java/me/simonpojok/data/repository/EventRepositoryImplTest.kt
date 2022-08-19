@@ -5,7 +5,6 @@ import junit.framework.Assert
 import kotlinx.coroutines.runBlocking
 import me.simonpojok.data.events.mapper.PastEventDataToDomainMapper
 import me.simonpojok.data.events.mapper.UpcomingEventDataToDomainMapper
-import me.simonpojok.data.events.model.EventDataModel
 import me.simonpojok.data.events.remote.EventsService
 import me.simonpojok.data.events.repository.EventRepositoryImpl
 import me.simonpojok.domain.events.model.EventDomainModel

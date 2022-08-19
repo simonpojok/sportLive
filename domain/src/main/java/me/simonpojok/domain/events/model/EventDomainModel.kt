@@ -1,4 +1,4 @@
-package me.simonpojok.domain.model
+package me.simonpojok.domain.events.model
 
 sealed class EventDomainModel(
     open val id: String,

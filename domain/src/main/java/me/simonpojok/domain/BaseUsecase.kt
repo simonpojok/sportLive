@@ -1,4 +1,4 @@
 package me.simonpojok.domain
 
-class BaseUsecase {
+class BaseUseCase {
 }

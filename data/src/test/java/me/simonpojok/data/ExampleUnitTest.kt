@@ -1,4 +1,4 @@
-package me.simonpojok.presenation
+package me.simonpojok.data
 
 import org.junit.Test
 

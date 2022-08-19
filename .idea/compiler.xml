@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="Sport_Live.app" target="11" />
+      <module name="Sport_Live.data" target="11" />
       <module name="Sport_Live.presenation" target="11" />
     </bytecodeTargetLevel>
   </component>

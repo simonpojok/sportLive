@@ -12,7 +12,7 @@ import me.simonpojok.sportlive.ui.common.fragments.BaseFragment
 import me.simonpojok.sportlive.ui.common.fragments.ItemsListAdapter
 import me.simonpojok.sportlive.ui.common.viewmodel.DialogCommand
 import me.simonpojok.sportlive.ui.events.model.EventUiModel
-import me.simonpojok.sportlive.ui.events.past_events.PastEventViewHolder
+import me.simonpojok.sportlive.ui.events.EventViewHolder
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class UpcomingEventsFragment : BaseFragment<UpcomingEventsViewState, DialogComma
     override val viewModel: UpcomingEventsViewModel by viewModels()
 
     private val pastEventAdapter: ItemsListAdapter<EventUiModel> = ItemsListAdapter { parent, _ ->
-        PastEventViewHolder(
+        EventViewHolder(
             LayoutInflater.from(requireContext())
                 .inflate(R.layout.past_event_list_item, parent, false)
         )

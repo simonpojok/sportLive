@@ -31,7 +31,7 @@ class PastEventsViewModel @Inject constructor(
         useCaseExecutor.execute(
             useCase = getPastEventsUseCase,
             callback = ::updatePastEvents,
-            onError = {error ->
+            onError = { error ->
                 print(error.toString())
             }
         )
@@ -41,6 +41,7 @@ class PastEventsViewModel @Inject constructor(
         updateState { lastState ->
             lastState.copy(
                 events = events.map(pastEventDomainToUiMapper::toUi)
+                    .sortedBy { it.date }
             )
         }
     }

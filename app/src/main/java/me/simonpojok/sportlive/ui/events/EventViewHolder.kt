@@ -1,4 +1,4 @@
-package me.simonpojok.sportlive.ui.events.past_events
+package me.simonpojok.sportlive.ui.events
 
 import android.view.View
 import android.widget.ImageView
@@ -8,7 +8,7 @@ import me.simonpojok.sportlive.R
 import me.simonpojok.sportlive.ui.common.fragments.ItemsListAdapter.ViewHolder
 import me.simonpojok.sportlive.ui.events.model.EventUiModel
 
-class PastEventViewHolder(
+class EventViewHolder(
     itemView: View
 ) : ViewHolder<EventUiModel>(itemView) {
     private val titleView: TextView by lazy { itemView.findViewById(R.id.event_title) }
@@ -19,7 +19,7 @@ class PastEventViewHolder(
     override fun bind(item: EventUiModel) {
         titleView.text = item.title
         subTitleView.text = item.subtitle
-        dateView.text = item.date
+        dateView.text = item.dateString
 
         Picasso.get().load(item.imageUrl)
             .fit()

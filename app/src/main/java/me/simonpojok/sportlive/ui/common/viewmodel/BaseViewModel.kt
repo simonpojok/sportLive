@@ -22,7 +22,7 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
         DomainToUiMapper<in DomainException, out UiException> =
         GeneralDomainToUiExceptionMapper()
 
-    val navigationCommands = SingleLiveEvent<UiDestination>()
+    val navigationCommands = SingleLiveEvent<Destination>()
     val snackBarEvents = SingleLiveEvent<Int>()
     val snackBarStringEvents = SingleLiveEvent<String>()
 
@@ -69,7 +69,7 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
 
     abstract fun initialState(): VIEW_STATE
 
-    protected fun navigate(uiDestination: UiDestination) {
+    protected fun navigate(uiDestination: Destination) {
         navigationCommands.value = uiDestination
     }
 

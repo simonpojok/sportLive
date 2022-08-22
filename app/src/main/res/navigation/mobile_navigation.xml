@@ -9,11 +9,27 @@
         android:id="@+id/navigation_past_events"
         android:name="me.simonpojok.sportlive.ui.events.past_events.PastEventsFragment"
         android:label="@string/title_past_events"
-        tools:layout="@layout/fragment_past_events" />
+        tools:layout="@layout/fragment_past_events">
+
+        <action
+            android:id="@+id/navigation_past_events_video_playback"
+            app:destination="@id/navigation_video_playback" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_upcoming_events"
         android:name="me.simonpojok.sportlive.ui.events.upcoming_events.UpcomingEventsFragment"
         android:label="@string/title_upcoming_events"
         tools:layout="@layout/fragment_upcoming_events" />
+
+    <fragment
+        android:id="@+id/navigation_video_playback"
+        android:name="me.simonpojok.sportlive.ui.video.VideoPlayBackFragment"
+        android:label="@string/video_play_back"
+        tools:layout="@layout/fragment_video_play_back">
+
+        <argument
+            android:name="videoUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

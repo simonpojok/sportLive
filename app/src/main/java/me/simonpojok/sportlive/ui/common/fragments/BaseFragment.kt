@@ -11,8 +11,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import me.simonpojok.sportlive.ui.common.fragments.destination.UiDestinationToNavigationMapper
 import me.simonpojok.sportlive.ui.common.viewmodel.BaseViewModel
+import me.simonpojok.sportlive.ui.common.viewmodel.Destination
 import me.simonpojok.sportlive.ui.common.viewmodel.DialogCommand
-import me.simonpojok.sportlive.ui.common.viewmodel.UiDestination
 import me.simonpojok.sportlive.ui.common.viewmodel.ViewState
 
 abstract class BaseFragment<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogCommand> :
@@ -85,8 +85,8 @@ abstract class BaseFragment<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComma
     private class NavigationObserver(
         private val destinationToNavigationMapper: UiDestinationToNavigationMapper,
         private val navController: NavController
-    ) : Observer<UiDestination> {
-        override fun onChanged(uiDestination: UiDestination) {
+    ) : Observer<Destination> {
+        override fun onChanged(uiDestination: Destination) {
             try {
                 destinationToNavigationMapper.map(uiDestination).navigate(navController)
             } catch (exception: IllegalArgumentException) {

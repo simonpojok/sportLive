@@ -15,6 +15,7 @@ import me.simonpojok.sportlive.ui.events.mapper.PastEventDomainToUiMapper
 import me.simonpojok.sportlive.ui.events.mapper.UpcomingEventDomainToUiMapper
 import me.simonpojok.sportlive.ui.events.past_events.PastEventsFragmentDestinationMapper
 import me.simonpojok.sportlive.ui.events.upcoming_events.UpcomingEventsFragmentDestinationMapper
+import me.simonpojok.sportlive.ui.video.VideoPlayBackUiDestinationToNavigationMapper
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -53,4 +54,7 @@ object UiModel {
 
     @Provides
     fun providesResources(@ApplicationContext application: Context) = application.resources
+
+    @Provides
+    fun providesVideoPlayBackUiDestinationToNavigationMapper() = VideoPlayBackUiDestinationToNavigationMapper()
 }

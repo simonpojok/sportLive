@@ -9,7 +9,8 @@ import me.simonpojok.sportlive.ui.common.fragments.ItemsListAdapter.ViewHolder
 import me.simonpojok.sportlive.ui.events.model.EventUiModel
 
 class EventViewHolder(
-    itemView: View
+    itemView: View,
+    private val onEventItemClicked: (EventUiModel) -> Unit = { _ -> }
 ) : ViewHolder<EventUiModel>(itemView) {
     private val titleView: TextView by lazy { itemView.findViewById(R.id.event_title) }
     private val subTitleView: TextView by lazy { itemView.findViewById(R.id.event_subtitle) }
@@ -25,5 +26,7 @@ class EventViewHolder(
             .fit()
             .centerCrop()
             .into(eventImageView)
+
+        itemView.setOnClickListener { onEventItemClicked(item) }
     }
 }

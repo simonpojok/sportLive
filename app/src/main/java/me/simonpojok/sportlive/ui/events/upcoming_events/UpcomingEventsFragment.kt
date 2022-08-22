@@ -3,40 +3,45 @@ package me.simonpojok.sportlive.ui.events.upcoming_events
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import me.simonpojok.sportlive.databinding.FragmentNotificationsBinding
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
+import me.simonpojok.sportlive.R
+import me.simonpojok.sportlive.ui.common.fragments.BaseFragment
+import me.simonpojok.sportlive.ui.common.fragments.ItemsListAdapter
+import me.simonpojok.sportlive.ui.common.viewmodel.DialogCommand
+import me.simonpojok.sportlive.ui.events.model.EventUiModel
+import me.simonpojok.sportlive.ui.events.past_events.PastEventViewHolder
+import javax.inject.Inject
 
-class UpcomingEventsFragment : Fragment() {
+@AndroidEntryPoint
+class UpcomingEventsFragment : BaseFragment<UpcomingEventsViewState, DialogCommand>() {
+    override val layout = R.layout.fragment_notifications
 
-    private var _binding: FragmentNotificationsBinding? = null
+    @Inject
+    override lateinit var destinationToNavigationMapper: UpcomingEventsFragmentDestinationMapper
+    override val viewModel: UpcomingEventsViewModel by viewModels()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val pastEventAdapter: ItemsListAdapter<EventUiModel> = ItemsListAdapter { parent, _ ->
+        PastEventViewHolder(
+            LayoutInflater.from(requireContext())
+                .inflate(R.layout.past_event_list_item, parent, false)
+        )
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(UpcomingEventsViewModel::class.java)
-
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private val upcomingEventsRecyclerView: RecyclerView get() = requireView().findViewById(R.id.upcoming_events)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        upcomingEventsRecyclerView.adapter = pastEventAdapter
+        val divider = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        upcomingEventsRecyclerView.addItemDecoration(divider)
+    }
+
+    override fun renderViewState(viewState: UpcomingEventsViewState) {
+        super.renderViewState(viewState)
+        pastEventAdapter.setAdapterItems(viewState.events)
     }
 }

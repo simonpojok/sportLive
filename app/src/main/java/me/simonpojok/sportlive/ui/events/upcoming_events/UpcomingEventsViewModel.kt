@@ -41,6 +41,7 @@ class UpcomingEventsViewModel @Inject constructor(
         updateState { lastState ->
             lastState.copy(
                 events = events.map(upcomingEventDomainToUiMapper::toUi)
+                    .sortedBy { it.date }
             )
         }
     }

@@ -22,6 +22,19 @@ class TimestampMapper(
             return resources.getString(R.string.yesterday, input.format(formatter))
         }
 
+        if (input.dayOfMonth == (now.dayOfMonth + 1) && input.year == now.year && input.month == now.month) {
+            val formatter = DateTimeFormatter.ofPattern("HH:mm")
+            return resources.getString(R.string.tomorrow, input.format(formatter))
+        }
+
+        if (input.dayOfMonth == (now.dayOfMonth + 2) && input.year == now.year && input.month == now.month) {
+            return resources.getString(R.string.in_two_days)
+        }
+
+        if (input.dayOfMonth == (now.dayOfMonth + 3) && input.year == now.year && input.month == now.month) {
+            return resources.getString(R.string.in_three_days)
+        }
+
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
         return input.format(formatter)
     }

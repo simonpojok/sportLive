@@ -1,13 +1,47 @@
 package me.simonpojok.sportlive.ui.events.upcoming_events
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import me.simonpojok.domain.common.usecaseexecutor.UseCaseExecutorProvider
+import me.simonpojok.domain.events.model.EventDomainModel
+import me.simonpojok.domain.events.usecase.GetUpcomingEventsUseCase
+import me.simonpojok.sportlive.ui.common.viewmodel.BaseViewModel
+import me.simonpojok.sportlive.ui.common.viewmodel.DialogCommand
+import me.simonpojok.sportlive.ui.common.viewmodel.mapper.GeneralDomainToUiExceptionMapper
+import me.simonpojok.sportlive.ui.events.mapper.UpcomingEventDomainToUiMapper
+import javax.inject.Inject
 
-class UpcomingEventsViewModel : ViewModel() {
+@HiltViewModel
+class UpcomingEventsViewModel @Inject constructor(
+    private val getUpcomingEventsUseCase: GetUpcomingEventsUseCase,
+    private val upcomingEventDomainToUiMapper: UpcomingEventDomainToUiMapper,
+    generalDomainToPresentationExceptionMapper: GeneralDomainToUiExceptionMapper,
+    useCaseExecutorProvider: UseCaseExecutorProvider
+) : BaseViewModel<UpcomingEventsViewState, DialogCommand>(
+    useCaseExecutorProvider = useCaseExecutorProvider,
+    exceptionDomainToUiMapper = generalDomainToPresentationExceptionMapper
+) {
+    override fun initialState() = UpcomingEventsViewState()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    override fun onFragmentViewCreated() {
+        super.onFragmentViewCreated()
+        getPastEvents()
     }
-    val text: LiveData<String> = _text
+
+    private fun getPastEvents() {
+        useCaseExecutor.execute(
+            useCase = getUpcomingEventsUseCase,
+            callback = ::updatePastEvents,
+            onError = { error ->
+                print(error.toString())
+            }
+        )
+    }
+
+    private fun updatePastEvents(events: List<EventDomainModel.UpcomingEvent>) {
+        updateState { lastState ->
+            lastState.copy(
+                events = events.map(upcomingEventDomainToUiMapper::toUi)
+            )
+        }
+    }
 }

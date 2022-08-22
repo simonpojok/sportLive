@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UpcomingEventsFragment : BaseFragment<UpcomingEventsViewState, DialogCommand>() {
-    override val layout = R.layout.fragment_notifications
+    override val layout = R.layout.fragment_upcoming_events
 
     @Inject
     override lateinit var destinationToNavigationMapper: UpcomingEventsFragmentDestinationMapper

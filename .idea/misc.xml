@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2296195652173913" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/fragment_past_events.xml" value="0.2296195652173913" />
+        <entry key="app/src/main/res/layout/fragment_video_play_back.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/past_event_list_item.xml" value="0.2296195652173913" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3333333333333333" />
       </map>

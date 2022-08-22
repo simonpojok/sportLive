@@ -2,4 +2,9 @@
     <string name="app_name">Sport Live</string>
     <string name="title_past_events">Events</string>
     <string name="title_upcoming_events">Schedule</string>
+    <string name="yesterday">Yesterday, %s</string>
+    <string name="today">Today, %s</string>
+    <string name="tomorrow">Tomorrow, %s</string>
+    <string name="in_two_days">In Two days</string>
+    <string name="in_three_days">In Three days</string>
 </resources>

@@ -8,6 +8,7 @@ import me.simonpojok.sportlive.ui.common.viewmodel.BaseViewModel
 import me.simonpojok.sportlive.ui.common.viewmodel.DialogCommand
 import me.simonpojok.sportlive.ui.common.viewmodel.mapper.GeneralDomainToUiExceptionMapper
 import me.simonpojok.sportlive.ui.events.mapper.PastEventDomainToUiMapper
+import me.simonpojok.sportlive.ui.events.past_events.destinations.VideoPlayBackDestination
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,5 +45,9 @@ class PastEventsViewModel @Inject constructor(
                     .sortedBy { it.date }
             )
         }
+    }
+
+    fun onPastEventAction(videoUrl: String) {
+        navigate(VideoPlayBackDestination(videoUrl))
     }
 }

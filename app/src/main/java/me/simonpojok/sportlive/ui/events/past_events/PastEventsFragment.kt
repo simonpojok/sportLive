@@ -27,7 +27,13 @@ class PastEventsFragment : BaseFragment<PastEventsViewState, DialogCommand>() {
 
     private val pastEventAdapter: ItemsListAdapter<EventUiModel> = ItemsListAdapter { parent, _ ->
         EventViewHolder(
-            LayoutInflater.from(requireContext()).inflate(R.layout.past_event_list_item, parent, false)
+            LayoutInflater.from(requireContext())
+                .inflate(R.layout.past_event_list_item, parent, false),
+            onEventItemClicked = { eventUiModel ->
+                if (eventUiModel is EventUiModel.PastEvent) {
+                    viewModel.onPastEventAction(eventUiModel.videoUrl)
+                }
+            }
         )
 
     }
@@ -35,7 +41,7 @@ class PastEventsFragment : BaseFragment<PastEventsViewState, DialogCommand>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pastEventsRecyclerView.adapter = pastEventAdapter
-        val divider = DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL)
+        val divider = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         pastEventsRecyclerView.addItemDecoration(divider)
     }
 

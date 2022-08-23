@@ -1,6 +1,10 @@
 package me.simonpojok.sportlive.ui.events.upcoming_events
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.simonpojok.domain.common.usecaseexecutor.UseCaseExecutorProvider
 import me.simonpojok.domain.events.model.EventDomainModel
 import me.simonpojok.domain.events.usecase.GetUpcomingEventsUseCase
@@ -20,11 +24,12 @@ class UpcomingEventsViewModel @Inject constructor(
     useCaseExecutorProvider = useCaseExecutorProvider,
     exceptionDomainToUiMapper = generalDomainToPresentationExceptionMapper
 ) {
+    private var eventsRefreshJob: Job? = null
     override fun initialState() = UpcomingEventsViewState()
 
     override fun onFragmentViewCreated() {
         super.onFragmentViewCreated()
-        getPastEvents()
+        onRefreshEvents()
     }
 
     private fun getPastEvents() {
@@ -44,5 +49,25 @@ class UpcomingEventsViewModel @Inject constructor(
                     .sortedBy { it.date }
             )
         }
+    }
+
+    private fun onRefreshEvents() {
+        onCancelEventsRefresh()
+        eventsRefreshJob = viewModelScope.launch {
+            while(true) {
+                getPastEvents()
+                delay(30000)
+            }
+        }
+    }
+
+    private fun onCancelEventsRefresh() {
+        eventsRefreshJob?.cancel()
+        eventsRefreshJob = null
+    }
+
+    override fun onFragmentDestroyView() {
+        onCancelEventsRefresh()
+        super.onFragmentDestroyView()
     }
 }

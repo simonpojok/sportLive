@@ -26,7 +26,6 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
     val snackBarEvents = SingleLiveEvent<Int>()
     val snackBarStringEvents = SingleLiveEvent<String>()
 
-    val notificationState = SingleLiveEvent<NotificationState>()
     val presentationExceptionEvents = SingleLiveEvent<UiException>()
     private val _viewState = MutableLiveData<VIEW_STATE>().apply { value = initialState() }
     val viewState: LiveData<VIEW_STATE>
@@ -39,22 +38,6 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
 
     fun notify(dialogCommand: DIALOG_COMMAND) {
         dialogEvents.value = dialogCommand
-    }
-
-    protected fun notifyLoading(message: String) {
-        notificationState.value = NotificationState.Loading(message)
-    }
-
-    protected fun notifyFailure(message: String, exception: UiException) {
-        notificationState.value = NotificationState.Failure(message)
-    }
-
-    protected fun notifySuccess(message: String) {
-        notificationState.value = NotificationState.Success(message)
-    }
-
-    protected fun notifyNormal(message: String) {
-        notificationState.value = NotificationState.Normal(message)
     }
 
     fun currentViewState() = viewState.value ?: initialState()
@@ -98,11 +81,4 @@ abstract class BaseViewModel<VIEW_STATE : ViewState, DIALOG_COMMAND : DialogComm
             presentationExceptionEvents.value = exception
         }
     }
-}
-
-sealed class NotificationState(open val message: String) {
-    data class Success(override val message: String) : NotificationState(message)
-    data class Loading(override val message: String) : NotificationState(message)
-    data class Failure(override val message: String) : NotificationState(message)
-    data class Normal(override val message: String) : NotificationState(message)
 }

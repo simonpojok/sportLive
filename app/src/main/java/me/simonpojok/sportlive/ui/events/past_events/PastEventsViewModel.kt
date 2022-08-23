@@ -6,6 +6,7 @@ import me.simonpojok.domain.events.model.EventDomainModel
 import me.simonpojok.domain.events.usecase.GetPastEventsUseCase
 import me.simonpojok.sportlive.ui.common.viewmodel.BaseViewModel
 import me.simonpojok.sportlive.ui.common.viewmodel.DialogCommand
+import me.simonpojok.sportlive.ui.common.viewmodel.LoadingState
 import me.simonpojok.sportlive.ui.common.viewmodel.mapper.GeneralDomainToUiExceptionMapper
 import me.simonpojok.sportlive.ui.events.mapper.PastEventDomainToUiMapper
 import me.simonpojok.sportlive.ui.events.past_events.destinations.VideoPlayBackDestination
@@ -29,10 +30,14 @@ class PastEventsViewModel @Inject constructor(
     }
 
     private fun getPastEvents() {
+        updateState { lastState -> lastState.copy(loadingState = LoadingState.Loading) }
         useCaseExecutor.execute(
             useCase = getPastEventsUseCase,
             callback = ::updatePastEvents,
             onError = { error ->
+                updateState { lastState -> lastState.copy(
+                    loadingState = LoadingState.Done
+                ) }
                 print(error.toString())
             }
         )
@@ -42,7 +47,8 @@ class PastEventsViewModel @Inject constructor(
         updateState { lastState ->
             lastState.copy(
                 events = events.map(pastEventDomainToUiMapper::toUi)
-                    .sortedBy { it.date }
+                    .sortedBy { it.date },
+                loadingState = LoadingState.Done
             )
         }
     }
